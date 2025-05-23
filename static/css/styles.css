@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+body {
+    background-image: url('/static/img/cae5822082eb9c4701b68feca64caf31_edit_240689602803964.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 0;
+    color: #ba2929; /*  contraste */
+}
+
+.container {
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 15px;
+    padding: 15px;
+    height: 100vh;
+}
+
+.header {
+    grid-column: 1 / 3;
+    background-color: rgba(48, 48, 48, 0.2);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section {
+   background-color: rgba(30, 30, 30, 0.2);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    
+    overflow-y: auto;   
+}
+
+.section h2 {
+    margin-bottom: 15px;
+    color: #6f0606;
+    padding-bottom: 8px;
+}
+
+.client-data {
+    grid-column: 1;
+    grid-row: 2 / 4;
+}
+
+.register-client {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.trainer-management {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.routines {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+.payment-control {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: rgba(40, 40, 40, 0.38);
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+    
+}
+
+th {
+    background-color: #6889b933;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: white;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+button:hover {
+    background-color:#bf91918a;
+}
+
+button.secondary {
+    background-color: #95a5a6;
+}
+
+button.secondary:hover {
+    background-color: #7f8c8d;
+}
+
+button.danger {
+    background-color: #ad1000;
+}
+
+button.danger:hover {
+    background-color: #bd3b2d;
+}
+
+button.success {
+    background-color: #c19a9a9e;
+}
+
+button.success:hover {
+    background-color: #9b7f7f9e;
+}
+
+.small-section {
+    height: 250px;
+}
+
+.status-active {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.status-pagado {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-pendiente {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.action-buttons {
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: rgb(118, 134, 202);
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+        height: auto;
+    }
+    
+    .client-data, .register-client, .trainer-management, .routines, .payment-control {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+.custom-alert {
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    max-width: 80%;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.custom-alert h3 {
+    margin-top: 0;
+}
+
+.custom-alert button {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-alert button.danger {
+    background-color: #e74c3c;
+}
+
+.custom-alert table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.custom-alert table th, 
+.custom-alert table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-alert table th {
+     background-color: rgba(30, 30, 30, 0.9); /* Encabezados más oscuros */
+    padding: 12px;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+}

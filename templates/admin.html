@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Gimnasio</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <header class="header">
+            <h1>Panel de Administración - Gimnasio SupraGym</h1>
+            <p>Bienvenido, Administrador | Hoy es <span id="fecha-actual"></span></p>
+        </header>
+
+        <!-- Sección de Clientes -->
+        <section class="section client-data">
+            <h2>Datos de Clientes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="clientes-table">
+                    {% for cliente in clientes %}
+                    <tr data-id="{{ cliente.id_cliente }}">
+                        <td>{{ cliente.id_cliente }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.dni }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td class="status-{{ cliente.estado }}">{{ cliente.estado|capitalize }}</td>
+                        <td>
+                            <button class="btn-editar">Editar</button>
+                            <button class="secondary btn-detalles">Ver Detalles</button>
+                            <button class="danger btn-eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button id="btn-nuevo-cliente" class="success" style="margin-top: 15px;">+ Agregar Nuevo Cliente</button>
+        </section>
+
+        <!-- Formulario de Registro de Cliente -->
+        <section class="section register-client">
+            <h2>Registro de Cliente</h2>
+            <form id="form-cliente">
+                <div class="two-columns">
+                    <div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dni">DNI:</label>
+                            <input type="text" id="dni" required>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" id="correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" id="telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <select id="estado" required>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="cliente-id">
+                <button type="submit" id="btn-guardar-cliente">Registrar Cliente</button>
+                <button type="reset" id="btn-cancelar" class="secondary">Cancelar</button>
+            </form>
+        </section>
+
+        <!-- Gestión de Entrenadores -->
+        <section class="section trainer-management">
+            <h2>Gestión de Entrenadores</h2>
+            <div class="action-buttons">
+                <button id="btn-nuevo-entrenador" class="success">+ Agregar Entrenador</button>
+                <button id="btn-asignar-cliente" class="secondary">👥 Asignar Cliente</button>
+                <button id="btn-ver-asignados" class="secondary">📋 Ver Asignados</button>
+            </div>
+
+            <div class="two-columns">
+                <div>
+                    <h3>Lista de Entrenadores</h3>
+                    <table id="entrenadores-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Especialidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entrenador in entrenadores %}
+                            <tr data-id="{{ entrenador.id_entrenador }}">
+                                <td>{{ entrenador.id_entrenador }}</td>
+                                <td>{{ entrenador.nombre }}</td>
+                                <td>{{ entrenador.especialidad }}</td>
+                                <td>
+                                    <button class="btn-editar-entrenador">Editar</button>
+                                    <button class="danger btn-eliminar-entrenador">Eliminar</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="panel-entrenador" class="hidden">
+                    <h3 id="titulo-panel-entrenador">Nuevo Entrenador</h3>
+                    <form id="form-entrenador">
+                        <div class="form-group">
+                            <label for="nombre-entrenador">Nombre:</label>
+                            <input type="text" id="nombre-entrenador" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="especialidad">Especialidad:</label>
+                            <input type="text" id="especialidad" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono-entrenador">Teléfono:</label>
+                            <input type="tel" id="telefono-entrenador" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo-entrenador">Correo:</label>
+                            <input type="email" id="correo-entrenador" required>
+                        </div>
+                        <input type="hidden" id="entrenador-id">
+                        <button type="submit" id="btn-guardar-entrenador">Guardar</button>
+                        <button type="button" id="btn-cancelar-entrenador" class="secondary">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rutinas -->
+        <section class="section small-section routines">
+            <h2>Rutinas</h2>
+            <div class="two-columns">
+                <div>
+                    <div class="form-group">
+                        <label for="nombre-rutina">Nombre:</label>
+                        <input type="text" id="nombre-rutina">
+                    </div>
+                    <div class="form-group">
+                        <label for="nivel-rutina">Nivel:</label>
+                        <select id="nivel-rutina">
+                            <option value="basico">Básico</option>
+                            <option value="intermedio">Intermedio</option>
+                            <option value="avanzado">Avanzado</option>
+                        </select>
+                    </div>
+                    <button id="btn-crear-rutina">Crear Rutina</button>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="descripcion-rutina">Descripción:</label>
+                        <textarea id="descripcion-rutina" rows="3"></textarea>
+                    </div>
+                    <button id="btn-lista-rutinas" class="secondary">Lista de Rutinas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Control de Pagos -->
+        <section class="section small-section payment-control">
+            <h2>Control de Pagos</h2>
+            <form id="form-pago">
+                <div class="two-columns">
+                    <div>
+                        <div class="form-group">
+                            <label for="cliente-pago">Cliente:</label>
+                            <select id="cliente-pago" required>
+                                <option value="">Seleccione cliente...</option>
+                                {% for cliente in clientes %}
+                                <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }} {{ cliente.apellido }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo-pago">Tipo de pago:</label>
+                            <select id="tipo-pago" required>
+                                <option value="mensualidad">Mensualidad</option>
+                                <option value="inscripcion">Inscripción</option>
+                                <option value="personalizado">Personalizado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="monto">Monto:</label>
+                            <input type="number" id="monto" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado-pago">Estado:</label>
+                            <select id="estado-pago" required>
+                                <option value="pagado">Pagado</option>
+                                <option value="pendiente">Pendiente</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" id="btn-registrar-pago">Registrar Pago</button>
+                <button type="button" id="btn-historial-pagos" class="secondary">Historial de Pagos</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Modales -->
+    <div id="modal-asignar" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Asignar Cliente a Entrenador</h3>
+            <form id="form-asignacion">
+                <div class="form-group">
+                    <label for="modal-cliente">Cliente:</label>
+                    <select id="modal-cliente" required>
+                        <option value="">Seleccione cliente...</option>
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-rutina">Rutina:</label>
+                    <select id="modal-rutina" required>
+                        <option value="">Seleccione rutina...</option>
+                        {% for rutina in rutinas %}
+                        <option value="{{ rutina.id_rutina }}">{{ rutina.nombre }} ({{ rutina.nivel }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-entrenador">Entrenador:</label>
+                    <select id="modal-entrenador" required>
+                        <option value="">Seleccione entrenador...</option>
+                        {% for entrenador in entrenadores %}
+                        <option value="{{ entrenador.id_entrenador }}">{{ entrenador.nombre }} - {{
+                            entrenador.especialidad }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" id="btn-confirmar-asignacion" class="success">Asignar</button>
+                <button type="button" class="secondary close-modal">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-asignaciones" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Clientes Asignados</h3>
+            <div class="form-group">
+                <label for="filtro-entrenador">Filtrar por entrenador:</label>
+                <select id="filtro-entrenador">
+                    <option value="">Todos los entrenadores</option>
+                    {% for entrenador in entrenadores %}
+                    <option value="{{ entrenador.id_entrenador }}">{{ entrenador.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div id="lista-asignaciones" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Rutina</th>
+                            <th>Entrenador</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asignacion in asignaciones %}
+                        <tr>
+                            <td>{{ asignacion.cliente.nombre }} {{ asignacion.cliente.apellido }}</td>
+                            <td>{{ asignacion.rutina.nombre }}</td>
+                            <td>{{ asignacion.entrenador.nombre }}</td>
+                            <td>{{ asignacion.fecha_asignacion.strftime('%d/%m/%Y') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-pagos" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Historial de Pagos</h3>
+            <div class="form-group">
+                <label for="filtro-cliente-pagos">Filtrar por cliente:</label>
+                <select id="filtro-cliente-pagos">
+                    <option value="">Todos los clientes</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div id="lista-pagos" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pago in pagos %}
+                        <tr>
+                            <td>{{ pago.cliente.nombre }} {{ pago.cliente.apellido }}</td>
+                            <td>{{ pago.fecha_pago.strftime('%d/%m/%Y') }}</td>
+                            <td>${{ "%.2f"|format(pago.monto) }}</td>
+                            <td>{{ pago.tipo }}</td>
+                            <td class="status-{{ pago.estado }}">{{ pago.estado|capitalize }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/scripts.js"></script>
+</body>
+
+</html>
