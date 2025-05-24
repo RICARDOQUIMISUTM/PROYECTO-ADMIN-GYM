@@ -1,5 +1,7 @@
 ### VISUALIZACION DE APP WEB
 
+![](Visualizacio/Captura.PNG)
+
 ### Instalacion
 
 ```bash
