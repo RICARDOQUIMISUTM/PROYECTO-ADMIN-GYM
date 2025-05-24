@@ -34,6 +34,11 @@ h1 {
     text-shadow: 2px 2px 4px rgba(168, 165, 165, 0.87);
 }
 
+h3 {
+    color: rgb(247, 244, 244);
+    text-shadow: 2px 2px 4px rgba(168, 165, 165, 0.87);
+}
+
 p {
     font-size: 0.7em;
     text-align: center;
@@ -109,15 +114,16 @@ p {
 }
 
 table {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.87);
+    text-shadow: 2px 2px 4px rgba(46, 45, 45, 0.274);
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    background-color: rgba(40, 40, 40, 0.38);
+    background-color: rgba(163, 0, 0, 0.774);
 }
 
 th,
 td {
+    color: rgb(247, 244, 244);
     font-size: 0.9em;
     padding: 5px;
     text-align: left;
@@ -126,15 +132,15 @@ td {
 
 th {
     font-size: 0.9em;
-    background-color: #ad0000;
+    background-color: #000000;
     /* rellwno de la cuadricula  de los titulos de las tablas */
-    color: rgb(255, 175, 175);
+    color: rgb(241, 14, 14);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.87);
     /* color de los titulos de las tablas */
 }
 
 tr:hover {
-    background-color: #f8f6f6;
+    background-color: #3d0000;
     /* color cuando se coloca el cursor en una secion de los datos de la tabla */
 }
 
@@ -344,19 +350,21 @@ button.success:hover {
 
 .custom-alert button.danger {
     background-color: #e74c3c;
+
 }
 
 .custom-alert table {
     width: 100%;
     border-collapse: collapse;
     margin: 15px 0;
+
 }
 
-.custom-alert table th,
 .custom-alert table td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+
 }
 
 .custom-alert table th {
