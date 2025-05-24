@@ -1,6 +1,6 @@
 ### VISUALIZACION DE APP WEB
 
-![](Visualizacio/Captura.PNG)
+![](/Visualzacion/Captura.PNG)
 
 ### Instalacion
 
