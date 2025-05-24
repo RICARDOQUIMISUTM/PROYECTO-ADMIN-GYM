@@ -1,8 +1,8 @@
 -- Nuevos Entrenadores
-INSERT INTO Entrenadores (nombre, especialidad, telefono, correo) VALUES
-('Lucía Fernández', 'Yoga', '555-1004', 'lucia@entrenador.com'),
-('Miguel Sánchez', 'Pilates', '555-1005', 'miguel@entrenador.com'),
-('Elena Torres', 'Nutrición', '555-1006', 'elena@entrenador.com');
+nombre, especialidad, telefono, correo
+Lucía Fernández,Yoga,555-1004,lucia@entrenador.com
+Miguel Sánchez,Pilates,555-1005,miguel@entrenador.com
+Elena Torres,Nutrición,555-1006,elena@entrenador.com
 
 -- Nuevas Rutinas
 INSERT INTO Rutinas (nombre, descripcion, nivel) VALUES
