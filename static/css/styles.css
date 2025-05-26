@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
     background-color: #8b00006c;
     /* Fondo rojo oscuro como base */
-    background-image: linear-gradient(rgba(139, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    background-image: linear-gradient(rgba(139, 0, 0, 0.479), rgba(0, 0, 0, 0.438)),
         url(/static/img/cae5822082eb9c4701b68feca64caf31_edit_240689602803964.jpg);
     background-size: cover;
     background-position: center;
@@ -80,7 +80,7 @@ p {
     font-size: 1.2em;
     margin-bottom: 15px;
     color: #faf3f3;
-    text-shadow: 2px 2px 4px rgba(168, 165, 165, 0.87);
+    /*text-shadow: 2px 2px 4px rgba(168, 165, 165, 0.87);* pone sombras a las letras/
 
     /*padding-bottom: 8px;*/
 
