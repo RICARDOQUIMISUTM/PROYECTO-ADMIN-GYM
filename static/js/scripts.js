@@ -684,10 +684,10 @@ function alertHtml(title, html) {
   alertDiv.style.top = "50%";
   alertDiv.style.left = "50%";
   alertDiv.style.transform = "translate(-50%, -50%)";
-  alertDiv.style.backgroundColor = "#510606";
-  alertDiv.style.padding = "20px";
+  alertDiv.style.backgroundColor = "#1b1d35";
+  alertDiv.style.padding = "13px";
   alertDiv.style.borderRadius = "8px";
-  alertDiv.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
+  alertDiv.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.5)";
   alertDiv.style.zIndex = "1000";
   alertDiv.style.maxWidth = "80%";
   alertDiv.style.maxHeight = "80vh";

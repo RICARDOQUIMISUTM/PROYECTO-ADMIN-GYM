@@ -1,34 +1,42 @@
 -- Nuevos Entrenadores
-nombre, especialidad, telefono, correo
-Lucía Fernández,Yoga,555-1004,lucia@entrenador.com
-Miguel Sánchez,Pilates,555-1005,miguel@entrenador.com
-Elena Torres,Nutrición,555-1006,elena@entrenador.com
+Carlos Mendoza | Musculación | 11 2345-6789 | carlos.mendoza@gym.com
+María González | Yoga y Pilates | 11 3456-7890 | maria.gonzalez@gym.com
+Roberto Silva | CrossFit | 11 4567-8901 | roberto.silva@gym.com
+Ana Rodríguez | Spinning | 11 5678-9012 | ana.rodriguez@gym.com
+Diego Fernández | Entrenamiento Funcional |  11 6789-0123 | diego.fernandez@gym.com
+Laura Martínez | Aqua Aeróbicos |  11 7890-1234 | laura.martinez@gym.com
+Javier López | Boxeo |  11 8901-2345 | javier.lopez@gym.com
+Sofía Torres | Danza Fitness | 11 9012-3456 | sofia.torres@gym.com
 
 -- Nuevas Rutinas
-INSERT INTO Rutinas (nombre, descripcion, nivel) VALUES
-('Yoga para principiantes', 'Rutina de yoga para aliviar estrés y mejorar flexibilidad', 'básico'),
-('Hipertrofia muscular', 'Rutina enfocada en aumento de masa muscular', 'intermedio'),
-('Circuito HIIT', 'Entrenamiento intensivo por intervalos para quema de grasa', 'avanzado');
+nombre, descripcion, nivel
+Fuerza Básica | Rutina de introducción al entrenamiento con pesas, enfocada en movimientos básicos | Principiante
+Cardio Intenso | Entrenamiento cardiovascular de alta intensidad con intervalos | Intermedio
+Yoga Matutino | Secuencia suave de yoga para comenzar el día con energía | Principiante
+CrossFit Warrior | Rutina completa de CrossFit combinando fuerza, resistencia y agilidad | Avanzado
+Spinning Power | Clase de ciclismo indoor con música motivacional y alta intensidad | Intermedio
+Funcional Core | Entrenamiento funcional enfocado en el fortalecimiento del core | Intermedio
+Boxeo Técnico | Rutina de boxeo enfocada en técnica y acondicionamiento físico | Avanzado
+Pilates Reformer | Entrenamiento de Pilates utilizando equipos especializados | Intermedio
+Aqua Fitness | Ejercicios de bajo impacto en el agua para tonificación muscular | Principiante
+HIIT Total | Entrenamiento por intervalos de alta intensidad para quemar grasa | Avanzado
 
 -- Nuevos Clientes
-INSERT INTO Clientes (nombre, apellido, dni, correo, telefono, fecha_registro, estado) VALUES
-('Pablo', 'García', '45678901', 'pablo@cliente.com', '555-4567', '2025-04-05', 'activo'),
-('Carmen', 'Rodríguez', '56789012', 'carmen@cliente.com', '555-5678', '2025-04-12', 'activo'),
-('Roberto', 'Díaz', '67890123', 'roberto@cliente.com', '555-6789', '2025-04-18', 'inactivo'),
-('Sofía', 'López', '78901234', 'sofia@cliente.com', '555-7890', '2025-04-25', 'activo');
+nombre, apellido, dni, correo, telefono, fecha_registro, estado
+Juan | Pérez | 35.123.456 | juan.perez@email.com | 4 11 1234-5678 | 2025-01-15 | Activo
+María | García | 28.789.012 | maria.garcia@email.com |  11 2345-6789 | 2025-01-18 | Activo
+Pedro | Sánchez | 42.345.678 | pedro.sanchez@email.com | 11 3456-7890 | 2025-01-20 | Activo
+Ana | Martín | 31.901.234 | ana.martin@email.com |  11 4567-8901 | 2025-01-22 | Inactivo
+Luis | Fernández | 38.567.890 | luis.fernandez@email.com |  11 5678-9012 | 2025-01-25 | Activo
+Carmen | López | 26.234.567 | carmen.lopez@email.com | 11 6789-0123 | 2025-02-01 | Activo
+Miguel | Torres | 44.890.123 | miguel.torres@email.com |  11 7890-1234 | 2025-02-03 | Pendiente
+Laura | Jiménez | 33.456.789 | laura.jimenez@email.com |  11 8901-2345 | 2025-02-05 | Activo
+David | Ruiz | 29.012.345 | david.ruiz@email.com | 11 9012-3456 | 2025-02-08 | Activo
+Elena | Morales | 36.678.901 | elena.morales@email.com |  11 0123-4567 | 2025-02-10 | Inactivo
+Carlos | Vega | 41.234.567 | carlos.vega@email.com |  11 1357-2468 | 2025-02-12 | Activo
+Isabel | Herrera | 30.890.123 | isabel.herrera@email.com |  11 2468-1357 | 2025-02-15 | Activo
+Roberto | Castro | 39.456.789 | roberto.castro@email.com |  11 3579-2468 | 2025-02-18 | Pendiente
+Patricia | Ramos | 27.012.345 | patricia.ramos@email.com |  11 4680-1357 | 2025-02-20 | Activo
+Fernando | Guerrero | 43.678.901 | fernando.guerrero@email.com | 11 5791-2468 | 2025-02-22 | Activo
 
--- Nuevas Asignaciones
-INSERT INTO Asignaciones (id_cliente, id_rutina, id_entrenador, fecha_asignacion) VALUES
-(4, 4, 4, '2025-05-20'),
-(5, 5, 5, '2025-05-21'),
-(6, 6, 6, '2025-05-22'),
-(7, 4, 4, '2025-05-23');
 
--- Nuevos Pagos
-INSERT INTO Pagos (id_cliente, fecha_pago, monto, tipo, estado) VALUES
-(4, '2025-05-11', 55.00, 'mensualidad', 'pagado'),
-(5, '2025-05-12', 65.00, 'mensualidad', 'pagado'),
-(6, '2025-05-13', 45.00, 'inscripción', 'pendiente'),
-(7, '2025-05-14', 80.00, 'mensualidad', 'pagado'),
-(4, '2025-05-16', 35.00, 'personalizado', 'pendiente'),
-(5, '2025-05-17', 25.00, 'suplementos', 'pagado');

@@ -100,21 +100,23 @@
             <h2>Gestión de Entrenadores</h2>
             <div class="action-buttons">
                 <button id="btn-nuevo-entrenador" class="success">+ Agregar Entrenador</button>
-                <button id="btn-asignar-cliente" class="secondary">👥 Asignar Cliente</button>
-                <button id="btn-ver-asignados" class="secondary">📋 Ver Asignados</button>
+                <button id="btn-asignar-cliente" class="secondary"> Asignar Cliente</button>
+                <button id="btn-ver-asignados" class="secondary"> Ver Asignados</button>
             </div>
 
             <div class="two-columns">
-                <div>
+                <div class="table-container">
                     <h3>Lista de Entrenadores</h3>
                     <table id="entrenadores-table">
                         <thead>
+
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Especialidad</th>
                                 <th>Acciones</th>
                             </tr>
+
                         </thead>
                         <tbody>
                             {% for entrenador in entrenadores %}
@@ -130,6 +132,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
                 </div>
 
                 <div id="panel-entrenador" class="hidden">
