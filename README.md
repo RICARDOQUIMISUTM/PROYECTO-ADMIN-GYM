@@ -5,7 +5,8 @@
 ### Instalacion
 
 ```bash
-git clone
+git clone https://github.com/RICARDOQUIMISUTM/PROYECTO-ADMIN-GYM.git
+crea base de datos
 pip install -r requirements.txt
 
 ```
@@ -13,5 +14,5 @@ pip install -r requirements.txt
 ### Ejecutar
 
 ```bash
-python app.py
+python App.py
 ```

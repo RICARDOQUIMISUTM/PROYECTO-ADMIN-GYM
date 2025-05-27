@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((rutinas) => {
           let html =
-            "<h3>Lista de Rutinas</h3><table><thead><tr><th>Nombre</th><th>Nivel</th><th>Descripción</th><th>Acciones</th></tr></thead><tbody>";
+            "<table><thead><tr><th>Nombre</th><th>Nivel</th><th>Descripción</th><th>Acciones</th></tr></thead><tbody>";
 
           rutinas.forEach((rutina) => {
             html += `<tr data-id="${rutina.id_rutina}">
@@ -684,7 +684,7 @@ function alertHtml(title, html) {
   alertDiv.style.top = "50%";
   alertDiv.style.left = "50%";
   alertDiv.style.transform = "translate(-50%, -50%)";
-  alertDiv.style.backgroundColor = "white";
+  alertDiv.style.backgroundColor = "#510606";
   alertDiv.style.padding = "20px";
   alertDiv.style.borderRadius = "8px";
   alertDiv.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
