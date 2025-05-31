@@ -99,12 +99,19 @@ class Pago(db.Model):
     estado = db.Column(db.Enum('pagado', 'pendiente'), nullable=False, default='pendiente')
     
     def to_dict(self):
-        return {
-            'id_pago': self.id_pago,
-            'id_cliente': self.id_cliente,
-            'fecha_pago': self.fecha_pago.strftime('%Y-%m-%d'),
-            'monto': float(self.monto),
-            'tipo': self.tipo,
-            'estado': self.estado,
-            'cliente_nombre': self.cliente.nombre + ' ' + self.cliente.apellido
-        }
+        try:
+            return {
+                'id_pago': self.id_pago,
+                'id_cliente': self.id_cliente,
+                'fecha_pago': self.fecha_pago.strftime('%Y-%m-%d') if self.fecha_pago else None,
+                'monto': float(self.monto) if self.monto else 0.0,
+                'tipo': self.tipo,
+                'estado': self.estado,
+                'cliente_nombre': f"{self.cliente.nombre} {self.cliente.apellido}" if self.cliente else 'Cliente no disponible'
+            }
+        except Exception as e:
+            print(f"Error serializando pago: {e}")
+            return {
+                'id_pago': self.id_pago,
+                'error': 'Error al serializar datos del pago'
+            }

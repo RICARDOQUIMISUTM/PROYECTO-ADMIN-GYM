@@ -1,0 +1,56 @@
+/* Estilos específicos para el panel de clientes */
+body {
+    background: linear-gradient(rgba(139, 0, 0, 0.11), rgba(0, 0, 0, 0.226)),
+        url('/static/img/cae5822082eb9c4701b68feca64caf31_edit_240689602803964.jpg') center/cover fixed;
+}
+
+
+.container-clientes {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-container-clientes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.client-data {
+    height: 400px;
+    overflow-y: auto;
+}
+
+.payment-control {
+    height: 260px;
+}
+
+.register-client {
+    height: 330px;
+}
+
+.payment-history {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#modal-pagos .modal-content {
+    max-width: 800px;
+}
+
+#modal-pagos table {
+    margin-top: 15px;
+}
+
+@media (max-width: 992px) {
+    .grid-container-clientes {
+        grid-template-columns: 1fr;
+    }
+}

@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
-# Modelos de la base de datos
+# Modelos de la base de datos 
 class Cliente(db.Model):
     __tablename__ = 'Clientes'
     
@@ -114,27 +114,36 @@ class Pago(db.Model):
             'cliente_nombre': self.cliente.nombre + ' ' + self.cliente.apellido
         }
 
-# Rutas de la aplicación
+# Rutas principales
 @app.route('/')
 def index():
-    return redirect(url_for('panel_admin'))
+    # Obtener el conteo de usuarios activos
+    active_users = Cliente.query.filter_by(estado='activo').count()
+    return render_template('index.html', active_users=active_users)
 
-@app.route('/admin')
-def panel_admin():
+# Página de administración de clientes
+@app.route('/admin/clientes')
+def panel_clientes():
     clientes = Cliente.query.all()
+    pagos = Pago.query.all()
+    return render_template('admin_clientes.html', 
+                         clientes=clientes,
+                         pagos=pagos)
+
+# Página de administración de entrenadores
+@app.route('/admin/entrenadores')
+def panel_entrenadores():
     entrenadores = Entrenador.query.all()
     rutinas = Rutina.query.all()
     asignaciones = Asignacion.query.all()
-    pagos = Pago.query.all()
-    
-    return render_template('admin.html', 
-                         clientes=clientes,
+    clientes = Cliente.query.all()  # Necesario para el modal de asignaciones
+    return render_template('admin_entrenadores.html', 
                          entrenadores=entrenadores,
                          rutinas=rutinas,
                          asignaciones=asignaciones,
-                         pagos=pagos)
+                         clientes=clientes)
 
-# API para clientes
+# API para clientes 
 @app.route('/api/clientes', methods=['GET', 'POST'])
 def api_clientes():
     if request.method == 'POST':
@@ -192,7 +201,6 @@ def api_cliente(id):
     
     if request.method == 'DELETE':
         try:
-            # Eliminar primero las relaciones
             Asignacion.query.filter_by(id_cliente=id).delete()
             Pago.query.filter_by(id_cliente=id).delete()
             db.session.delete(cliente)
@@ -204,7 +212,7 @@ def api_cliente(id):
     
     return jsonify(cliente.to_dict())
 
-# API para entrenadores
+# API para entrenadores 
 @app.route('/api/entrenadores', methods=['GET', 'POST'])
 def api_entrenadores():
     if request.method == 'POST':
@@ -237,7 +245,6 @@ def api_entrenador(id):
     
     if request.method == 'DELETE':
         try:
-            # Reasignar o eliminar las asignaciones
             Asignacion.query.filter_by(id_entrenador=id).delete()
             db.session.delete(entrenador)
             db.session.commit()
@@ -248,7 +255,7 @@ def api_entrenador(id):
     
     return jsonify(entrenador.to_dict())
 
-# API para rutinas
+# API para rutinas 
 @app.route('/api/rutinas', methods=['GET', 'POST'])
 def api_rutinas():
     if request.method == 'POST':
@@ -279,7 +286,6 @@ def api_rutina(id):
     
     if request.method == 'DELETE':
         try:
-            # Eliminar primero las asignaciones
             Asignacion.query.filter_by(id_rutina=id).delete()
             db.session.delete(rutina)
             db.session.commit()
@@ -290,7 +296,7 @@ def api_rutina(id):
     
     return jsonify(rutina.to_dict())
 
-# API para asignaciones
+# API para asignaciones 
 @app.route('/api/asignaciones', methods=['GET', 'POST'])
 def api_asignaciones():
     if request.method == 'POST':
@@ -308,9 +314,10 @@ def api_asignaciones():
     asignaciones = Asignacion.query.all()
     return jsonify([asignacion.to_dict() for asignacion in asignaciones])
 
-# API para pagos
+# API para pagos 
 @app.route('/api/pagos', methods=['GET', 'POST'])
 def api_pagos():
+    
     if request.method == 'POST':
         data = request.get_json()
         nuevo_pago = Pago(
