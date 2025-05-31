@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Entrenadores - Gimnasio</title>
+    <link rel="stylesheet" href="/static/css/entrenadores.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <nav>
+                <div class="logo">Panel de Entrenadores - Gimnasio SupraGym</div>
+            </nav>
+            <p>Bienvenido, Administrador | Hoy es <span id="fecha-actual"></span></p>
+            <ul class="nav-links">
+                <a href="{{ url_for('panel_clientes') }}" class="nav-button">Ir a Clientes</a>
+            </ul>
+        </header>
+
+        <!-- Gestión de Entrenadores -->
+        <section class="section trainer-management">
+            <h2>Gestión de Entrenadores</h2>
+            <div class="action-buttons">
+                <button id="btn-nuevo-entrenador" class="success">+ Agregar Entrenador</button>
+                <button id="btn-asignar-cliente" class="secondary">Asignar Cliente</button>
+                <button id="btn-ver-asignados" class="secondary">Ver Asignados</button>
+            </div>
+
+            <div class="two-columns">
+                <div class="table-container">
+                    <h3>Lista de Entrenadores</h3>
+                    <table id="entrenadores-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Especialidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entrenador in entrenadores %}
+                            <tr data-id="{{ entrenador.id_entrenador }}">
+                                <td>{{ entrenador.id_entrenador }}</td>
+                                <td>{{ entrenador.nombre }}</td>
+                                <td>{{ entrenador.especialidad }}</td>
+                                <td>
+                                    <button class="btn-editar-entrenador">Editar</button>
+                                    <button class="danger btn-eliminar-entrenador">Eliminar</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="panel-entrenador" class="hidden">
+                    <h3 id="titulo-panel-entrenador">Nuevo Entrenador</h3>
+                    <form id="form-entrenador">
+                        <div class="form-group">
+                            <label for="nombre-entrenador">Nombre:</label>
+                            <input type="text" id="nombre-entrenador" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="especialidad">Especialidad:</label>
+                            <input type="text" id="especialidad" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono-entrenador">Teléfono:</label>
+                            <input type="tel" id="telefono-entrenador" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo-entrenador">Correo:</label>
+                            <input type="email" id="correo-entrenador" required>
+                        </div>
+                        <input type="hidden" id="entrenador-id">
+                        <button type="submit" id="btn-guardar-entrenador">Guardar</button>
+                        <button type="button" id="btn-cancelar-entrenador" class="secondary">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rutinas -->
+        <section class="section routines">
+            <h2>Rutinas</h2>
+            <div class="two-columns">
+                <div>
+                    <div class="form-group">
+                        <label for="nombre-rutina">Nombre:</label>
+                        <input type="text" id="nombre-rutina">
+                    </div>
+                    <div class="form-group">
+                        <label for="nivel-rutina">Nivel:</label>
+                        <select id="nivel-rutina">
+                            <option value="basico">Básico</option>
+                            <option value="intermedio">Intermedio</option>
+                            <option value="avanzado">Avanzado</option>
+                        </select>
+                    </div>
+                    <button id="btn-crear-rutina">Crear Rutina</button>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="descripcion-rutina">Descripción:</label>
+                        <textarea id="descripcion-rutina" rows="3"></textarea>
+                    </div>
+                    <button id="btn-lista-rutinas" class="secondary">Lista de Rutinas</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para asignar cliente -->
+    <div id="modal-asignar" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Asignar Cliente a Entrenador</h3>
+            <form id="form-asignacion">
+                <div class="form-group">
+                    <label for="modal-cliente">Cliente:</label>
+                    <select id="modal-cliente" required>
+                        <option value="">Seleccione cliente...</option>
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-rutina">Rutina:</label>
+                    <select id="modal-rutina" required>
+                        <option value="">Seleccione rutina...</option>
+                        {% for rutina in rutinas %}
+                        <option value="{{ rutina.id_rutina }}">{{ rutina.nombre }} ({{ rutina.nivel }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-entrenador">Entrenador:</label>
+                    <select id="modal-entrenador" required>
+                        <option value="">Seleccione entrenador...</option>
+                        {% for entrenador in entrenadores %}
+                        <option value="{{ entrenador.id_entrenador }}">{{ entrenador.nombre }} - {{
+                            entrenador.especialidad }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" id="btn-confirmar-asignacion" class="success">Asignar</button>
+                <button type="button" class="secondary close-modal">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para ver asignaciones -->
+    <div id="modal-asignaciones" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Clientes Asignados</h3>
+            <div class="form-group">
+                <label for="filtro-entrenador">Filtrar por entrenador:</label>
+                <select id="filtro-entrenador">
+                    <option value="">Todos los entrenadores</option>
+                    {% for entrenador in entrenadores %}
+                    <option value="{{ entrenador.id_entrenador }}">{{ entrenador.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div id="lista-asignaciones" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Rutina</th>
+                            <th>Entrenador</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asignacion in asignaciones %}
+                        <tr>
+                            <td>{{ asignacion.cliente.nombre }} {{ asignacion.cliente.apellido }}</td>
+                            <td>{{ asignacion.rutina.nombre }}</td>
+                            <td>{{ asignacion.entrenador.nombre }}</td>
+                            <td>{{ asignacion.fecha_asignacion.strftime('%d/%m/%Y') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/entrenadores.js"></script>
+</body>
+
+</html>
