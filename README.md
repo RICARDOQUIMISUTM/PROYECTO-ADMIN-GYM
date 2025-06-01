@@ -1,6 +1,6 @@
 ### VISUALIZACION DE APP WEB
 
-![](/Visualzacion/Interfas.PNG)
+![](/Visualzacion/VRSF.PNG)
 
 ### Instalacion
 
