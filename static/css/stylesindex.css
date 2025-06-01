@@ -441,12 +441,40 @@
 
  .gallery-item {
      height: 250px;
-     background: linear-gradient(45deg, #1a1a1a, #2a2a2a, #3a3a3a);
+     background: linear-gradient(45deg, rgba(26, 26, 26, 0.7), rgba(42, 42, 42, 0.8));
      position: relative;
      overflow: hidden;
      border: 2px solid #444;
      transition: all 0.3s ease;
+     background-size: cover;
+     background-position: center;
+     background-blend-mode: overlay;
  }
+
+ .gallery-item:nth-child(1) {
+     background-image: url(/static/img/P2.jpg);
+ }
+
+ .gallery-item:nth-child(2) {
+     background-image: url(/static/img/);
+ }
+
+ .gallery-item:nth-child(3) {
+     background-image: url(/static/img/);
+ }
+
+ .gallery-item:nth-child(4) {
+     background-image: url(/static/img/);
+ }
+
+ .gallery-item:nth-child(5) {
+     background-image: url(/static/img/);
+ }
+
+ .gallery-item:nth-child(6) {
+     background-image: url(/static/img/);
+ }
+
 
  .gallery-item::before {
      content: '';
