@@ -453,26 +453,27 @@
 
  .gallery-item:nth-child(1) {
      background-image: url(/static/img/P2.jpg);
+
  }
 
  .gallery-item:nth-child(2) {
-     background-image: url(/static/img/);
+     background-image: url(/static/img/kevin\ levrone\ sad\ pfp.jpg);
  }
 
  .gallery-item:nth-child(3) {
-     background-image: url(/static/img/);
+     background-image: url(/static/img/mike.jpg);
  }
 
  .gallery-item:nth-child(4) {
-     background-image: url(/static/img/);
+     background-image: url(/static/img/Body\ Goals.jpg);
  }
 
  .gallery-item:nth-child(5) {
-     background-image: url(/static/img/);
+     background-image: url(/static/img/m.jpg);
  }
 
  .gallery-item:nth-child(6) {
-     background-image: url(/static/img/);
+     background-image: url(/static/img/Geraldine\ Grus\ __\ Zodiac\ Academy_.jpg);
  }
 
 
@@ -500,7 +501,7 @@
  }
 
  .gallery-item::after {
-     content: 'TRAINING ZONE';
+     content: 'POYECTO';
      position: absolute;
      bottom: 20px;
      left: 20px;
