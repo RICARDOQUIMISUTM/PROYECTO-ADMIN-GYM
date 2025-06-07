@@ -15,6 +15,12 @@ git clone https://github.com/RICARDOQUIMISUTM/PROYECTO-ADMIN-GYM.git
 ```bash
 CREATE DATABASE gimnasio_db;
 USE gimnasio_db;
+
+```
+
+- importar scrip
+
+```bash
 importa el scrip de la base de datos /sql/gimnasio_db.sql
 
 ```
@@ -31,3 +37,7 @@ pip install -r requirements.txt
 ```bash
 python App.py
 ```
+
+## Documentation
+
+[Documentation](/Doc/SRS_GYM.pdf)
