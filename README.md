@@ -4,9 +4,24 @@
 
 ### Instalacion
 
+- clonar proyecto
+
 ```bash
 git clone https://github.com/RICARDOQUIMISUTM/PROYECTO-ADMIN-GYM.git
-crea base de datos
+```
+
+- Crea base de datos
+
+```bash
+CREATE DATABASE gimnasio_db;
+USE gimnasio_db;
+importa el scrip de la base de datos /sql/gimnasio_db.sql
+
+```
+
+- Install dependencias
+
+```bash
 pip install -r requirements.txt
 
 ```
