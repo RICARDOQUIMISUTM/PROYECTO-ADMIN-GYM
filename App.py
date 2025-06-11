@@ -121,27 +121,29 @@ def index():
     active_users = Cliente.query.filter_by(estado='activo').count()
     return render_template('index.html', active_users=active_users)
 
-# Página de administración de clientes
 @app.route('/admin/clientes')
 def panel_clientes():
     clientes = Cliente.query.all()
-    pagos = Pago.query.all()
-    return render_template('admin_clientes.html', 
-                         clientes=clientes,
-                         pagos=pagos)
+    return render_template('admin_clientes.html', clientes=clientes)
 
-# Página de administración de entrenadores
+@app.route('/admin/pagos')
+def panel_pagos():
+    clientes = Cliente.query.all()
+    pagos = Pago.query.all()
+    return render_template('admin_pagos.html', clientes=clientes, pagos=pagos)
+
 @app.route('/admin/entrenadores')
 def panel_entrenadores():
     entrenadores = Entrenador.query.all()
     rutinas = Rutina.query.all()
     asignaciones = Asignacion.query.all()
-    clientes = Cliente.query.all()  # Necesario para el modal de asignaciones
-    return render_template('admin_entrenadores.html', 
-                         entrenadores=entrenadores,
-                         rutinas=rutinas,
-                         asignaciones=asignaciones,
-                         clientes=clientes)
+    clientes = Cliente.query.all()
+    return render_template('admin_entrenadores.html', entrenadores=entrenadores, rutinas=rutinas, asignaciones=asignaciones, clientes=clientes)
+
+@app.route('/admin/rutinas')
+def panel_rutinas():
+    rutinas = Rutina.query.all()
+    return render_template('admin_rutinas.html', rutinas=rutinas)
 
 # API para clientes 
 @app.route('/api/clientes', methods=['GET', 'POST'])
@@ -333,6 +335,22 @@ def api_pagos():
     
     pagos = Pago.query.all()
     return jsonify([pago.to_dict() for pago in pagos])
+
+@app.route('/api/pagos/<int:id_pago>', methods=['GET'])
+def api_obtener_pago(id_pago):
+    pago = Pago.query.get_or_404(id_pago)
+    return jsonify(pago.to_dict())
+
+@app.route('/api/pagos/<int:id_pago>', methods=['PUT'])
+def api_actualizar_pago(id_pago):
+    pago = Pago.query.get_or_404(id_pago)
+    data = request.get_json()
+
+    pago.monto = data.get('monto', pago.monto)
+    pago.estado = data.get('estado', pago.estado)
+
+    db.session.commit()
+    return jsonify({'message': 'Pago actualizado exitosamente'})
 
 if __name__ == '__main__':
     with app.app_context():

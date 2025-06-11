@@ -2,9 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Mostrar fecha actual
   mostrarFechaActual();
 
-  // Variables globales
-  let clienteEditando = null;
-
   // Event listeners para modales
   configurarModales();
 
@@ -23,17 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("clientes-table")
     .addEventListener("click", manejarEventosTablaClientes);
-
-  // Gestión de pagos
-  document
-    .getElementById("form-pago")
-    .addEventListener("submit", registrarPago);
-  document
-    .getElementById("btn-historial-pagos")
-    .addEventListener("click", mostrarHistorialPagos);
-  document
-    .getElementById("filtro-cliente-pagos")
-    .addEventListener("change", filtrarPagos);
 });
 
 // Funciones auxiliares comunes
@@ -79,7 +65,6 @@ function configurarModales() {
 
 // Funciones para clientes
 function nuevoCliente() {
-  clienteEditando = null;
   document.getElementById("cliente-id").value = "";
   document.getElementById("form-cliente").reset();
   document.getElementById("btn-guardar-cliente").textContent =
@@ -89,7 +74,6 @@ function nuevoCliente() {
 async function guardarCliente(e) {
   e.preventDefault();
 
-  const form = document.getElementById("form-cliente");
   const clienteId = document.getElementById("cliente-id").value;
   const url = clienteId ? `/api/clientes/${clienteId}` : "/api/clientes";
   const method = clienteId ? "PUT" : "POST";
@@ -118,7 +102,7 @@ async function guardarCliente(e) {
         ? "Cliente actualizado exitosamente"
         : "Cliente registrado exitosamente"
     );
-    form.reset();
+    document.getElementById("form-cliente").reset();
     window.location.reload();
   } catch (error) {
     console.error("Error:", error);
@@ -127,7 +111,6 @@ async function guardarCliente(e) {
 }
 
 function cancelarEdicionCliente() {
-  clienteEditando = null;
   document.getElementById("form-cliente").reset();
 }
 
@@ -242,93 +225,6 @@ async function eliminarCliente(id) {
   }
 }
 
-// Funciones para pagos
-async function registrarPago(e) {
-  e.preventDefault();
-
-  const pagoData = {
-    id_cliente: document.getElementById("cliente-pago").value,
-    fecha_pago: new Date().toISOString().split("T")[0],
-    monto: document.getElementById("monto").value,
-    tipo: document.getElementById("tipo-pago").value,
-    estado: document.getElementById("estado-pago").value,
-  };
-
-  if (!pagoData.id_cliente || !pagoData.monto) {
-    alert("Por favor complete todos los campos obligatorios");
-    return;
-  }
-
-  try {
-    const response = await fetch("/api/pagos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pagoData),
-    });
-
-    if (!response.ok) throw new Error("Error al registrar el pago");
-
-    const result = await response.json();
-    alert("Pago registrado exitosamente");
-    document.getElementById("form-pago").reset();
-    window.location.reload();
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Error al registrar el pago: " + error.message);
-  }
-}
-
-function mostrarHistorialPagos() {
-  document.getElementById("modal-pagos").classList.remove("hidden");
-}
-
-async function filtrarPagos() {
-  const clienteId = document.getElementById("filtro-cliente-pagos").value;
-
-  try {
-    const response = await fetch("/api/pagos");
-    const pagos = await response.json();
-
-    const filtered = pagos.filter(
-      (p) => !clienteId || p.id_cliente.toString() === clienteId
-    );
-
-    let html = `
-      <table>
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Fecha</th>
-            <th>Monto</th>
-            <th>Tipo</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    filtered.forEach((pago) => {
-      html += `
-        <tr>
-          <td>${pago.cliente_nombre}</td>
-          <td>${pago.fecha_pago}</td>
-          <td>$${pago.monto.toFixed(2)}</td>
-          <td>${pago.tipo}</td>
-          <td class="status-${pago.estado}">
-            ${pago.estado.charAt(0).toUpperCase() + pago.estado.slice(1)}
-          </td>
-        </tr>
-      `;
-    });
-
-    html += "</tbody></table>";
-    document.getElementById("lista-pagos").innerHTML = html;
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Error al filtrar pagos");
-  }
-}
-
 // Función auxiliar para mostrar alertas con HTML
 function alertHtml(title, html) {
   const alertDiv = document.createElement("div");
@@ -370,3 +266,6 @@ function alertHtml(title, html) {
 
   return alertDiv;
 }
+document.getElementById("menu-toggle").addEventListener("click", function () {
+  document.getElementById("menu").classList.toggle("active");
+});

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutinas - Gimnasio</title>
+    <link rel="stylesheet" href="/static/css/clientes.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <nav>
+                <div class="logo">Panel de rutinas - Gimnasio SupraGym</div>
+            </nav>
+            <p>Bienvenido, Administrador | Hoy es <span id="fecha-actual"></span></p>
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <!-- Menú desplegable -->
+        <div class="menu" id="menu">
+            <a href="/admin/clientes">Datos de Clientes</a>
+            <a href="/admin/pagos">Control de Pagos</a>
+            <a href="/admin/entrenadores">Gestión de Entrenadores</a>
+            <a href="/admin/rutinas">Rutinas</a>
+        </div>
+
+
+        <!-- Rutinas -->
+        <section class="section routines">
+            <h2>Rutinas</h2>
+            <div class="two-columns">
+                <div>
+                    <div class="form-group">
+                        <label for="nombre-rutina">Nombre:</label>
+                        <input type="text" id="nombre-rutina">
+                    </div>
+                    <div class="form-group">
+                        <label for="nivel-rutina">Nivel:</label>
+                        <select id="nivel-rutina">
+                            <option value="basico">Básico</option>
+                            <option value="intermedio">Intermedio</option>
+                            <option value="avanzado">Avanzado</option>
+                        </select>
+                    </div>
+                    <button id="btn-crear-rutina">Crear Rutina</button>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="descripcion-rutina">Descripción:</label>
+                        <textarea id="descripcion-rutina" rows="3"></textarea>
+                    </div>
+                    <button id="btn-lista-rutinas" class="secondary">Lista de Rutinas</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para ver lista de rutinas -->
+    <div id="modal-rutinas" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Lista de Rutinas</h3>
+            <div id="lista-rutinas" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Nivel</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rutina in rutinas %}
+                        <tr data-id="{{ rutina.id_rutina }}">
+                            <td>{{ rutina.id_rutina }}</td>
+                            <td>{{ rutina.nombre }}</td>
+                            <td>{{ rutina.nivel }}</td>
+                            <td>{{ rutina.descripcion }}</td>
+                            <td>
+                                <button class="btn-editar-rutina">Editar</button>
+                                <button class="danger btn-eliminar-rutina">Eliminar</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/rutinas.js"></script>
+
+</body>
+
+</html>

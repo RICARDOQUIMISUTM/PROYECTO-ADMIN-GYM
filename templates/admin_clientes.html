@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Clientes - Gimnasio</title>
+    <title>Datos de Clientes - Gimnasio</title>
     <link rel="stylesheet" href="/static/css/clientes.css">
     <link rel="stylesheet" href="/static/css/base.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -17,13 +17,21 @@
                 <div class="logo">Panel de Clientes - Gimnasio SupraGym</div>
             </nav>
             <p>Bienvenido, Administrador | Hoy es <span id="fecha-actual"></span></p>
-            <ul class="ini">
-                <a href="{{ url_for('index') }}" class="nav-button">Inicio</a>
-            </ul>
-            <ul class="nav-links">
-                <a href="{{ url_for('panel_entrenadores') }}" class="nav-button">Ir a Entrenadores</a>
-            </ul>
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </header>
+
+        <!-- Menú desplegable -->
+        <div class="menu" id="menu">
+            <a href="/admin/clientes">Datos de Clientes</a>
+            <a href="/admin/pagos">Control de Pagos</a>
+            <a href="/admin/entrenadores">Gestión de Entrenadores</a>
+            <a href="/admin/rutinas">Rutinas</a>
+            <a href="/admin/informes">Informes</a>
+
+
+        </div>
 
         <!-- Sección de Clientes -->
         <div class="left-column-cilente">
@@ -108,96 +116,10 @@
                 </form>
             </section>
         </div>
-
-        <!-- Control de Pagos -->
-        <div class="left-column">
-            <section class="section payment-control">
-                <h2>Control de Pagos</h2>
-                <form id="form-pago">
-                    <div class="two-columns">
-                        <div>
-                            <div class="form-group">
-                                <label for="cliente-pago">Cliente:</label>
-                                <select id="cliente-pago" required>
-                                    <option value="">Seleccione cliente...</option>
-                                    {% for cliente in clientes %}
-                                    <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }} {{ cliente.apellido }}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="tipo-pago">Tipo de pago:</label>
-                                <select id="tipo-pago" required>
-                                    <option value="mensualidad">Mensualidad</option>
-                                    <option value="inscripcion">Inscripción</option>
-                                    <option value="personalizado">Personalizado</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="form-group">
-                                <label for="monto">Monto:</label>
-                                <input type="number" id="monto" min="0" step="0.01" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="estado-pago">Estado:</label>
-                                <select id="estado-pago" required>
-                                    <option value="pagado">Pagado</option>
-                                    <option value="pendiente">Pendiente</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" id="btn-registrar-pago">Registrar Pago</button>
-                    <button type="button" id="btn-historial-pagos" class="secondary">Historial de Pagos</button>
-                </form>
-            </section>
-        </div>
     </div>
 
-    <!-- Modal Historial de Pagos -->
-    <div id="modal-pagos" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Historial de Pagos</h3>
-            <div class="form-group">
-                <label for="filtro-cliente-pagos">Filtrar por cliente:</label>
-                <select id="filtro-cliente-pagos">
-                    <option value="">Todos los clientes</option>
-                    {% for cliente in clientes %}
-                    <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div id="lista-pagos" style="max-height: 400px; overflow-y: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Cliente</th>
-                            <th>Fecha</th>
-                            <th>Monto</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for pago in pagos %}
-                        <tr>
-                            <td>{{ pago.cliente.nombre }} {{ pago.cliente.apellido }}</td>
-                            <td>{{ pago.fecha_pago.strftime('%d/%m/%Y') }}</td>
-                            <td>${{ "%.2f"|format(pago.monto) }}</td>
-                            <td>{{ pago.tipo }}</td>
-                            <td class="status-{{ pago.estado }}">{{ pago.estado|capitalize }}</td>
+    <script src="/static/js/clientes.js"></script>
 
-                        </tr>
-
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <script src="/static/js/clientes.js"></script>
 </body>
 
 </html>
