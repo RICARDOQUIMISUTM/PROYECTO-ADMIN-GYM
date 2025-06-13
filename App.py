@@ -145,6 +145,10 @@ def panel_rutinas():
     rutinas = Rutina.query.all()
     return render_template('admin_rutinas.html', rutinas=rutinas)
 
+@app.route('/admin/informes')
+def panel_informes():
+    return render_template('admin_informes.html')
+
 # API para clientes 
 @app.route('/api/clientes', methods=['GET', 'POST'])
 def api_clientes():
