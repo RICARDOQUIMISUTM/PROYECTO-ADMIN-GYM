@@ -31,24 +31,75 @@
         </div>
 
         <section class="section">
-            <h2>Generar Informes</h2>
-            <div class="buttons">
-                <button id="btn-generar-clientes" class="success">Generar Informe de Clientes</button>
-                <button id="btn-generar-entrenadores" class="success">Generar Informe de Entrenadores</button>
-                <button id="btn-generar-asignaciones" class="success">Generar Informe de Asignaciones</button>
-                <button id="btn-generar-pagos" class="success">Generar Informe de Pagos</button>
-            </div>
+            <!-- Sección de Filtros para Pagos -->
+            <div class="filtros-pagos card">
+                <h3>Filtrar Pagos</h3>
+                <div class="filtros-container">
+                    <div class="filtro-group">
+                        <label for="filtro-estado">Estado:</label>
+                        <select id="filtro-estado">
+                            <option value="todos">Todos</option>
+                            <option value="pagado">Pagado</option>
+                            <option value="pendiente">Pendiente</option>
+                        </select>
+                    </div>
 
-            <div id="pdf-preview" class="hidden">
-                <h3>Vista previa del Informe</h3>
+                    <div class="filtro-group">
+                        <label for="fecha-inicio">Desde:</label>
+                        <input type="date" id="fecha-inicio">
+                    </div>
+
+                    <div class="filtro-group">
+                        <label for="fecha-fin">Hasta:</label>
+                        <input type="date" id="fecha-fin">
+                    </div>
+
+                    <button id="btn-generar-informe" class="success">
+                        <i class="fas fa-file-pdf"></i> Generar Informe
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botones para generar informes -->
+        <section class="section">
+            <div class="buttons card">
+                <h3>Generar Informes</h3>
+                <div class="buttons-container">
+                    <button id="btn-generar-clientes" class="success">
+                        <i class="fas fa-file-pdf"></i> Informe de Clientes
+                    </button>
+                    <button id="btn-generar-entrenadores" class="success">
+                        <i class="fas fa-file-pdf"></i> Informe de Entrenadores
+                    </button>
+                    <button id="btn-generar-asignaciones" class="success">
+                        <i class="fas fa-file-pdf"></i> Informe de Asignaciones
+                    </button>
+                    <button id="btn-generar-rutinas" class="success">
+                        <i class="fas fa-file-pdf"></i> Generar Todas las Rutinas
+                    </button>
+                </div>
+        </section>
+
+        <section class="section">
+            <h2>Generar Informes </h2>
+            <div id="pdf-preview" class="hidden card">
+                <div class="pdf-header">
+                    <h3>Vista previa del Informe</h3>
+                    <button id="btn-descargar-pdf" class="success">
+                        <i class="fas fa-download"></i> Descargar PDF
+                    </button>
+                </div>
                 <iframe id="pdf-frame" src="" frameborder="0" width="100%" height="500px"></iframe>
-                <button id="btn-descargar-pdf" class="success">Descargar PDF</button>
             </div>
         </section>
     </div>
 
+    <!-- Librerías JS para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Script principal -->
     <script src="/static/js/informes.js"></script>
 </body>
 

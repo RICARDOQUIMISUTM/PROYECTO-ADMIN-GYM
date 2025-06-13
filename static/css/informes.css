@@ -36,3 +36,133 @@ body {
 .hidden {
     display: none;
 }
+
+/* Estilos generales */
+.card {
+    background: #555353;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la sección de filtros */
+.filtros-pagos h3,
+.estadisticas-pagos h3,
+.buttons h3 {
+    margin-top: 0;
+    color: #ffffff;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.filtros-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.filtro-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.filtro-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.filtro-group select,
+.filtro-group input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#btn-filtrar-pagos {
+    padding: 8px 20px;
+    align-self: flex-end;
+}
+
+
+
+.estadistica {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #3498db;
+}
+
+.estadistica span {
+    display: block;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.estadistica strong {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.tipos-container {
+    grid-column: 1 / -1;
+}
+
+.tipo-pago {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Estilos para los botones */
+.buttons-container {
+    display: table-column;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.pagos-buttons {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.pagos-buttons h4 {
+    margin: 0 0 10px 0;
+    color: #7f8c8d;
+}
+
+/* Vista previa del PDF */
+#pdf-preview {
+    margin-top: 30px;
+}
+
+.pdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filtros-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buttons-container {
+        grid-template-columns: 1fr;
+    }
+
+    #btn-filtrar-pagos {
+        align-self: stretch;
+    }
+}

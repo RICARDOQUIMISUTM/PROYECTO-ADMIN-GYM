@@ -356,6 +356,91 @@ def api_actualizar_pago(id_pago):
     db.session.commit()
     return jsonify({'message': 'Pago actualizado exitosamente'})
 
+#informes de pagos con filtrado
+@app.route('/api/informes/pagos', methods=['GET'])
+def api_informes_pagos():
+    estado = request.args.get('estado')
+    fecha_inicio = request.args.get('fecha_inicio')
+    fecha_fin = request.args.get('fecha_fin')
+    
+    # Construir la consulta base
+    query = db.session.query(
+        Pago.id_pago,
+        Pago.fecha_pago,
+        Pago.monto,
+        Pago.tipo,
+        Pago.estado,
+        Cliente.nombre.label('cliente_nombre'),
+        Cliente.apellido.label('cliente_apellido')
+    ).join(Cliente)
+    
+    # Aplicar filtros
+    if estado and estado in ['pagado', 'pendiente']:
+        query = query.filter(Pago.estado == estado)
+    
+    if fecha_inicio:
+        try:
+            fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d').date()
+            query = query.filter(Pago.fecha_pago >= fecha_inicio)
+        except ValueError:
+            return jsonify({'error': 'Formato de fecha inválido (YYYY-MM-DD)'}), 400
+    
+    if fecha_fin:
+        try:
+            fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d').date()
+            query = query.filter(Pago.fecha_pago <= fecha_fin)
+        except ValueError:
+            return jsonify({'error': 'Formato de fecha inválido (YYYY-MM-DD)'}), 400
+    
+    # Ordenar por fecha descendente
+    pagos = query.order_by(Pago.fecha_pago.desc()).all()
+    
+    # Formatear los resultados
+    resultados = []
+    for pago in pagos:
+        resultados.append({
+            'id_pago': pago.id_pago,
+            'fecha_pago': pago.fecha_pago.strftime('%Y-%m-%d'),
+            'monto': float(pago.monto),
+            'tipo': pago.tipo,
+            'estado': pago.estado,
+            'cliente_nombre': f"{pago.cliente_nombre} {pago.cliente_apellido}"
+        })
+    
+    return jsonify(resultados)
+
+# Ruta para obtener estadísticas de pagos
+@app.route('/api/informes/pagos/estadisticas', methods=['GET'])
+def api_estadisticas_pagos():
+    # Total pagado
+    total_pagado = db.session.query(
+        db.func.sum(Pago.monto)
+        .filter(Pago.estado == 'pagado')
+        .scalar() or 0.0)
+    
+    # Total pendiente
+    total_pendiente = db.session.query(
+        db.func.sum(Pago.monto)
+        .filter(Pago.estado == 'pendiente')
+        .scalar() or 0.0)
+    
+    # Cantidad por tipo
+    tipos_pago = db.session.query(
+        Pago.tipo,
+        db.func.count(Pago.id_pago),
+        db.func.sum(Pago.monto)
+    ).group_by(Pago.tipo).all()
+    
+    return jsonify({
+        'total_pagado': float(total_pagado),
+        'total_pendiente': float(total_pendiente),
+        'por_tipo': [{
+            'tipo': tipo,
+            'cantidad': cantidad,
+            'monto': float(monto) if monto else 0.0
+        } for tipo, cantidad, monto in tipos_pago]
+    })
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
